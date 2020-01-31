@@ -1,0 +1,23 @@
+{
+  "name": "dobble",
+  "version": "1.0.1",
+  "description": "A utility to generate symbol combinations for the game Dobble",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neob91/dobble.git"
+  },
+  "author": "Andrzej Bartosiński",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Neob91/dobble/issues"
+  },
+  "homepage": "https://github.com/Neob91/dobble#readme",
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  }
+}
