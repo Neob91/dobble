@@ -2,11 +2,16 @@ import { isPrime } from './utils';
 
 /**
  * Generates Dobble card configurations.
- * @param {number} n - Total number of symbols available
- * @returns {Array} List of generated cards (which are lists of symbol indices)
+ * @param {number} n - Number of symbols per card
+ * @param {boolean} [checkSanity=true] - Whether to run a sanity check on results
+ * @returns {Array<number[]>} List of generated cards (which are lists of symbol indices)
  */
-export const generate = (n: number): number[][] => {
+export const generate = (n: number, checkSanity = true): number[][] => {
   const deck: number[][] = [];
+
+  if (!isCardSymbolCountValid(n)) {
+    throw new Error('Symbol count per card is invalid.');
+  }
 
   for (let i = 0; i < n; i++) {
     const card: number[] = [0];
@@ -24,7 +29,7 @@ export const generate = (n: number): number[][] => {
 
       for (let k = 1; k < n; k++) {
         card.push(
-          (n - 1) * (k - 1) +
+          n + (n - 1) * (k - 1) +
           (((i - 1) * (k - 1) + (j - 1))) % (n - 1)
         );
       }
@@ -33,8 +38,19 @@ export const generate = (n: number): number[][] => {
     }
   }
 
+  if (checkSanity && !checkDeckSanity(deck)) {
+    throw new Error('Deck is invalid!');
+  }
+
   return deck;
 };
+
+/**
+ * Returns whether the count of symbols per card is valid. It has to be a prime number + 1.
+ * @param {number} n - Desired number of symbols per card
+ * @returns {boolean}
+ */
+export const isCardSymbolCountValid = (n: number): boolean => isPrime(n - 1);
 
 /**
  * Returns the total number of symbols needed to provide n symbols per card.
@@ -60,4 +76,26 @@ export const getCardSymbolCount = (n: number) => {
   }
 
   return 1;
+};
+
+/**
+ * Returns whether each card has exactly 1 symbol in common with any other card.
+ * @param {Array<number[]>} deck - Value returned from generate
+ * @returns {boolean}
+ */
+export const checkDeckSanity = (deck: number[][]): boolean => {
+  for (let i = 0; i < deck.length; i++) {
+    for (let j = 0; j < deck.length; j++) {
+      if (i === j) {
+        continue;
+      }
+
+      const common = deck[i].filter(s => deck[j].indexOf(s) !== -1);
+      if (common.length !== 1) {
+        return false;
+      }
+    }
+  }
+
+  return true;
 };
