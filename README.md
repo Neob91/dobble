@@ -12,9 +12,9 @@ Generates Dobble card configurations.
 
 **Parameters**
 
-*`n`* `{number}` Number of symbols per card
+&nbsp;&nbsp;&nbsp;&nbsp; *`n`* `{number}` Number of symbols per card
 
-*`[checkSanity=true]`* `{boolean}` Whether to run a sanity check on results
+&nbsp;&nbsp;&nbsp;&nbsp; *`[checkSanity=true]`* `{boolean}` Whether to run a sanity check on results
 
 **Returns**
 
@@ -41,7 +41,7 @@ Returns whether the count of symbols per card is valid. It has to be a prime num
 
 **Parameters**
 
-*`n`* `{number}` Desired number of symbols per card
+&nbsp;&nbsp;&nbsp;&nbsp; *`n`* `{number}` Desired number of symbols per card
 
 **Returns**
 
@@ -64,7 +64,7 @@ Returns the total number of symbols needed to provide n symbols per card.
 
 **Parameters**
 
-*`n`* `{number}` Desired number of symbols per card
+&nbsp;&nbsp;&nbsp;&nbsp; *`n`* `{number}` Desired number of symbols per card
 
 **Returns**
 
@@ -85,7 +85,7 @@ Returns the number of symbols per card that can be generated with n total symbol
 
 **Parameters**
 
-*`n`* `{number}` Total number of symbols
+&nbsp;&nbsp;&nbsp;&nbsp; *`n`* `{number}` Total number of symbols
 
 **Returns**
 
@@ -106,7 +106,7 @@ Returns whether each card has exactly 1 symbol in common with any other card.
 
 **Parameters**
 
-*`deck`* `{Array.<Array.<number>>}` Value returned from `generate`
+&nbsp;&nbsp;&nbsp;&nbsp; *`deck`* `{Array.<Array.<number>>}` Value returned from `generate`
 
 **Returns**
 
