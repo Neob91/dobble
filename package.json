@@ -1,6 +1,6 @@
 {
   "name": "dobble",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A utility to generate symbol combinations for the game Dobble",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
