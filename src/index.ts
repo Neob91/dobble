@@ -65,13 +65,23 @@ export const getTotalSymbolCount = (n: number) => (n + (n - 1) * (n - 1));
  * @returns {number} Number of symbols per card
  */
 export const getCardSymbolCount = (n: number) => {
+  const validCardCounts = [];
+
   if (n <= 0) {
     return 0;
   }
 
   for (let i = 1; i < n; i++) {
     if (getTotalSymbolCount(i) > n) {
-      return i - 1;
+      if (!validCardCounts.length) {
+        break;
+      }
+
+      return validCardCounts[0];
+    }
+
+    if (isCardSymbolCountValid(i)) {
+      validCardCounts.unshift(i);
     }
   }
 
@@ -84,7 +94,12 @@ export const getCardSymbolCount = (n: number) => {
  * @returns {boolean}
  */
 export const checkDeckSanity = (deck: number[][]): boolean => {
+  const allSymbols = new Set();
+  const matchedSymbols = new Set();
+
   for (let i = 0; i < deck.length; i++) {
+    allSymbols.add(deck[i]);
+
     for (let j = 0; j < deck.length; j++) {
       if (i === j) {
         continue;
@@ -94,8 +109,11 @@ export const checkDeckSanity = (deck: number[][]): boolean => {
       if (common.length !== 1) {
         return false;
       }
+
+      matchedSymbols.add(common[0]);
     }
   }
 
-  return true;
+  // We're checking that all symbols have a match somewhere
+  return allSymbols.size === matchedSymbols.size;
 };
