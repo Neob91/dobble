@@ -3,11 +3,28 @@ import { expect } from 'chai';
 import { checkDeckSanity, generate, getCardSymbolCount, getTotalSymbolCount, isCardSymbolCountValid } from '.';
 
 describe('generate', () => {
-  it('generates a valid deck', () => {
-    const deck = generate(8);
+  it('generates a set of valid decks with 8 symbols', () => {
+    for (let i = 0; i < 32; i++) {
+      let deck = generate(8);
+      expect(deck).to.have.length(57);
+      expect(checkDeckSanity(deck)).to.be.true;
+    }
+  });
 
-    expect(deck).to.have.length(57);
-    expect(checkDeckSanity(deck)).to.be.true;
+  it('generates a set of valid decks with 6 symbols', () => {
+    for (let i = 0; i < 32; i++) {
+      let deck = generate(6);
+      expect(deck).to.have.length(31);
+      expect(checkDeckSanity(deck)).to.be.true;
+    }
+  });
+
+  it('generates a set of valid decks with 4 symbols', () => {
+    for (let i = 0; i < 32; i++) {
+      let deck = generate(4);
+      expect(deck).to.have.length(13);
+      expect(checkDeckSanity(deck)).to.be.true;
+    }
   });
 });
 
@@ -89,6 +106,18 @@ describe('checkDeckSanity', () => {
       [ 0, 5, 6 ],
       [ 1, 3, 5 ],
       [ 2, 3, 6 ],
+    ];
+
+    expect(checkDeckSanity(deck)).to.be.false;
+  });
+
+  it('returns false for a deck where symbols repeat on the same card', () => {
+    const deck = [
+      [ 0, 1, 2 ],
+      [ 0, 3, 4 ],
+      [ 0, 5, 6 ],
+      [ 1, 3, 5 ],
+      [ 2, 2, 6 ], // 2 repeats on the same card
     ];
 
     expect(checkDeckSanity(deck)).to.be.false;

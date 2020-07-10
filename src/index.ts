@@ -96,9 +96,11 @@ export const getCardSymbolCount = (n: number) => {
 export const checkDeckSanity = (deck: number[][]): boolean => {
   const allSymbols = new Set();
   const matchedSymbols = new Set();
+  const uniqueCounts = new Set();
 
   for (let i = 0; i < deck.length; i++) {
     allSymbols.add(deck[i]);
+    uniqueCounts.add(new Set(deck[i]).size);
 
     for (let j = 0; j < deck.length; j++) {
       if (i === j) {
@@ -115,5 +117,10 @@ export const checkDeckSanity = (deck: number[][]): boolean => {
   }
 
   // We're checking that all symbols have a match somewhere
-  return allSymbols.size === matchedSymbols.size;
+  // and that all cards have the same correct number of unique symbols
+  return (
+    allSymbols.size === matchedSymbols.size &&
+    uniqueCounts.size === 1 &&
+    uniqueCounts.has(getCardSymbolCount(allSymbols.size))
+  )
 };
